@@ -37,21 +37,19 @@ public static class ConsoleHelper
             }
             catch (Exception)
             {
-                PrintError($"Input is not valid, expected a {GetTypeName(result)}");
+                PrintError($"Invalid value, expected a {GetTypeName(result)}");
                 continue;
             }
 
             if (validateFunc is null)
-            {
                 return result;
-            }
+
 
             var validationResult = validateFunc(result);
 
             if (validationResult.Success)
-            {
                 return result;
-            }
+
 
             PrintError(validationResult.Error.Message);
         }
@@ -71,13 +69,11 @@ public static class ConsoleHelper
         Console.ResetColor();
     }
 
-    private static string GetTypeName<T>(T o)
-    {
-        return o switch
+    private static string GetTypeName<T>(T o) =>
+        o switch
         {
             int or double or long or float => "number",
             DateTime => "date",
             _ => o.GetType().Name
         };
-    }
 }
