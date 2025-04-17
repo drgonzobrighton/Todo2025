@@ -44,12 +44,10 @@ public static class ConsoleHelper
             if (validateFunc is null)
                 return result;
 
-
             var validationResult = validateFunc(result);
 
             if (validationResult.Success)
                 return result;
-
 
             PrintError(validationResult.Error.Message);
         }

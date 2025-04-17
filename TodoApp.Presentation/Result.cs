@@ -16,6 +16,7 @@ public readonly record struct Result
     }
 
     public static Result Ok() => new(true);
+    public static Result Fail(Error error) => new(false, error);
 
     public static implicit operator Result(Error error) => new(false, error);
 
