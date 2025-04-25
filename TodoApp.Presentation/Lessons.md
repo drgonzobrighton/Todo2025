@@ -3,6 +3,7 @@
 - [Lesson 3](#lesson-3)
 - [Lesson 4](#lesson-4)
 - [Lesson 5](#lesson-5)
+- [Lesson 6](#lesson-6)
 
 ## Lesson 1
 
@@ -256,4 +257,62 @@ Console.WriteLine($"Your age: {age}");
 Once you have implemented the validation function, revisit the `GetSelection` method and try to refactor it so it
 uses `GetInput<T>` with a validator function.
 
+## Lesson 6
 
+### Handling Optional (Nullable) Inputs
+
+**Goal**:
+
+So far, we’ve required the user to always enter a value. But what if we want to allow them to leave a field blank, like a due
+date (CompleteBy) for a to-do item?
+
+In this lesson, you’ll learn how to support optional input, using nullable types (e.g. `DateTime?`, `int?`, etc.).
+
+What You’ll Learn:
+
+- ✅ What nullable types are (e.g. `int?`, `DateTime?`)
+- ✅ How to detect whether a type is nullable at runtime
+- ✅ How to return null from the input method if the user leaves the field empty
+
+### Background – Nullable Types
+
+In C#, adding ? to a type (e.g. `DateTime?`) means it can be empty (`null`). You’ll often use this when a value is optional.
+
+**Example:**
+
+```csharp
+DateTime? completeBy = null; // user hasn’t chosen a date
+```
+
+### Your Task
+
+Update your `GetInput<T>` method so that:
+
+If the type is nullable (e.g. `DateTime?`) and the user presses enter without typing anything, the method returns `null`.
+Otherwise, the input is parsed and validated as before.
+
+#### Hints & Tips
+
+- 🟡 What is `Nullable.GetUnderlyingType(typeof(T))`?
+  This checks if the type passed in is nullable (like `DateTime?`) and if so, it gives us the non-nullable version (`DateTime`).
+
+- 🟡 Why do we check for `string.IsNullOrEmpty(userInput)`?
+  So we can let the user skip input if the value is optional.
+
+- 🟡 What is default for a nullable type?
+  It’s just `null`.
+
+- 🟡 Use Case Preview:
+  Later, when we create to-do items, we’ll use this to let the user optionally set a due date.
+
+#### Try It Out
+
+Here’s a quick way to test it:
+
+```csharp
+DateTime? completeBy = GetInput<DateTime?>("Enter a completion date (optional):");
+if (completeBy is null)
+Console.WriteLine("No date selected");
+else
+Console.WriteLine($"Task must be completed by: {completeBy.Value.ToShortDateString()}");
+```
