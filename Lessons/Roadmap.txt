@@ -1,0 +1,11 @@
+Add create handler
+Add Repository (interface, in memory)
+Add GetAll
+Add Update
+Add Delete
+Save to disk (json)
+Add pagination to GetAll
+DI
+EF
+Add Api
+Add auth
