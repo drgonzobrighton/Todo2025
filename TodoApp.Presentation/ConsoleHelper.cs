@@ -15,7 +15,7 @@ public static class ConsoleHelper
                 : new Error($"'{value ?? string.Empty}' is not a valid option. Please choose from {string.Join(", ", optionValues)}");
     }
 
-    public static T? GetInput<T>(string prompt, Func<T?, Result>? validateFunc = null)
+    public static T? GetInput<T>(string prompt, Func<T?, Result>? validateFunc = null, bool? isOptional = null)
     {
         T? result = default;
 
@@ -26,9 +26,9 @@ public static class ConsoleHelper
             var userInput = Console.ReadLine();
             var underlyingType = Nullable.GetUnderlyingType(typeof(T));
             var targetType = underlyingType ?? typeof(T);
-            var isOptional = underlyingType is not null;
+            isOptional ??= underlyingType is not null;
 
-            if (string.IsNullOrEmpty(userInput) && isOptional)
+            if (string.IsNullOrEmpty(userInput) && isOptional.Value)
                 return result;
 
             try
