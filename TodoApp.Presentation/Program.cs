@@ -1,7 +1,10 @@
 ﻿using TodoApp.Presentation;
 
-var f = (bool b) => Result.Ok();
-var selection = ConsoleHelper.GetSelection("Select from x or y", ["x", "y"]);
-var boolean = ConsoleHelper.GetInput("Enter bool val", f);
-ConsoleHelper.Print(selection, ConsoleColor.Blue);
-ConsoleHelper.Print(boolean.GetType().ToString(), ConsoleColor.Blue);
+var menu = new ConsoleMenu();
+menu.AddItem("List all items", () => ConsoleHelper.Print("Listing all items"));
+menu.AddItem("Create item", () => ConsoleHelper.Print("Creating a new item"));
+menu.AddItem("Update item", () => ConsoleHelper.Print("Updating item"), 'u');
+menu.AddItem("Delete item", () => ConsoleHelper.Print("Deleting item"), 'd');
+menu.AddItem("Exit", () => Environment.Exit(0), 'x');
+
+menu.Show();

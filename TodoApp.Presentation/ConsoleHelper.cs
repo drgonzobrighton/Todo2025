@@ -12,7 +12,7 @@ public static class ConsoleHelper
         Result Validate(string? value) =>
             validOptions.Contains(value ?? string.Empty, StringComparer.OrdinalIgnoreCase)
                 ? Result.Ok()
-                : new Error($"'{value ?? string.Empty}' is not a valid option. Please choose from {string.Join(" or ", optionValues)}");
+                : new Error($"'{value ?? string.Empty}' is not a valid option. Please choose from {string.Join(", ", optionValues)}");
     }
 
     public static T? GetInput<T>(string prompt, Func<T?, Result>? validateFunc = null)
