@@ -19,21 +19,21 @@ public static class ConsoleHelper
     {
         T? result = default;
 
-        Print(prompt);
-
         while (true)
         {
-            var userInput = Console.ReadLine();
+            Print(prompt);
 
-            var isOptional = Nullable.GetUnderlyingType(typeof(T)) is not null;
+            var userInput = Console.ReadLine();
+            var underlyingType = Nullable.GetUnderlyingType(typeof(T));
+            var targetType = underlyingType ?? typeof(T);
+            var isOptional = underlyingType is not null;
 
             if (string.IsNullOrEmpty(userInput) && isOptional)
-                return default;
+                return result;
 
             try
             {
-                var type = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
-                result = (T)Convert.ChangeType(userInput, type, CultureInfo.InvariantCulture)!;
+                result = (T)Convert.ChangeType(userInput, targetType, CultureInfo.InvariantCulture)!;
             }
             catch (Exception)
             {
