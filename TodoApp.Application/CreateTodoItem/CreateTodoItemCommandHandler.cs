@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using TodoApp.Application.Models;
+using TodoApp.Application.Persistence;
 
 namespace TodoApp.Application.CreateTodoItem;
 
 public record CreateTodoItemCommand(string Title, string? Description, DateTime? CompleteBy);
 
-public class CreateTodoItemCommandHandler
+public class CreateTodoItemCommandHandler(ITodoRepository repository)
 {
     public Guid Handle(CreateTodoItemCommand command)
     {
@@ -18,6 +19,8 @@ public class CreateTodoItemCommandHandler
             Description = command.Description,
             CompleteBy = command.CompleteBy
         };
+
+        repository.Save(todoItem);
 
         return todoItem.Id;
     }

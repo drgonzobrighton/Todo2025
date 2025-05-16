@@ -72,6 +72,6 @@ public static class ConsoleHelper
         {
             int or double or long or float => "number",
             DateTime => "date",
-            _ => o.GetType().Name
+            _ => o?.GetType().Name ?? string.Empty
         };
 }

@@ -11,4 +11,8 @@
         <ProjectReference Include="..\TodoApp.Application\TodoApp.Application.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="ConsoleTables" Version="2.6.2" />
+    </ItemGroup>
+
 </Project>
