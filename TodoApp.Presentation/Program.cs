@@ -4,7 +4,7 @@ using TodoApp.Application.Models;
 using TodoApp.Application.Persistence;
 using TodoApp.Presentation;
 
-var repo = new InMemoryTodoRepository();
+var repo = new OnDiskTodoRepository();
 var menu = new ConsoleMenu();
 menu.AddItem("List all items", ListAllItems);
 menu.AddItem("Create item", CreateItem);
@@ -53,7 +53,7 @@ void GetById()
     }
 
     IEnumerable<TodoItem> items = [todoItem];
-    
+
     ConsoleTable.From(items).Write();
 }
 
